@@ -1,10 +1,10 @@
 
 function getRangomInt(min, max) {
-  if(typeof min !== 'number' || typeof max !== 'number') {
+  if (typeof min !== 'number' || typeof max !== 'number') {
     throw new TypeError();
   }
 
-  if(min > max) {
+  if (min > max) {
     throw new Error('The max value is less than the min');
   }
 
@@ -19,11 +19,11 @@ function getRangomInt(min, max) {
 }
 
 function validateTextLength(text, maxLength) {
-  if(typeof text !== 'string' || typeof maxLength !== 'number') {
+  if (typeof text !== 'string' || typeof maxLength !== 'number') {
     throw new TypeError();
   }
 
-  if(maxLength < 0) {
+  if (maxLength < 0) {
     throw new Error('The maxLength value is less than 0');
   }
 
