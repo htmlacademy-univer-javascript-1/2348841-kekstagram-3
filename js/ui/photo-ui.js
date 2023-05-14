@@ -1,4 +1,4 @@
-import { getPhotos, MAX_PHOTO_COUNT } from './data/photo-repository.js';
+import { getPhotos, MAX_PHOTO_COUNT } from '../data/photo-repository.js';
 
 const picturesFragment = document.createDocumentFragment();
 const pictures = document.querySelector('.pictures');

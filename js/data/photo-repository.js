@@ -1,4 +1,4 @@
-import { getRangomInt } from './utils/number-utils.js';
+import { getRangomInt } from '../utils/number-utils.js';
 
 const MAX_PHOTO_COUNT = 25;
 const MAX_LIKES_COUNT = 200;
