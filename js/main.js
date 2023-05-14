@@ -1,3 +1,2 @@
-import { getPhotos, MAX_PHOTO_COUNT } from './data/photo-repository.js';
+import './ui/photo-ui.js';
 
-getPhotos(MAX_PHOTO_COUNT);
