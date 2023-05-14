@@ -34,9 +34,9 @@ function validateTextLength(text, maxLength) {
 
 const MAX_PHOTO_COUNT = 25;
 const MAX_LIKES_COUNT = 200;
-const MAX_COMMENT_COUNT = 200;
+const MAX_COMMENTS_COUNT = 200;
 const MIN_LIKES_COUNT = 15;
-const MIN_COMMENT_COUNT = 0;
+const MIN_COMMENTS_COUNT = 0;
 
 function getPhotos(count) {
   if (typeof count !== 'number') {
