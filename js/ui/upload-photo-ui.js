@@ -1,6 +1,8 @@
 import '../../pristine/pristine.min.js';
-import { setupScale, dismissScale } from '../domain/render-scale-ui.js';
-import { setupEffects, dismissEffects } from '../domain/render-effects-ui.js';
+import { setupScale, dismissScale } from '../domain/render-scale.js';
+import { setupEffects, dismissEffects } from '../domain/render-effects.js';
+import { showErrorMessage, showSuccessMessage } from './base-information-events.js';
+import { postData } from '../data/upload-photo-api.js';
 
 const uploadInput = document.getElementById('upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -8,12 +10,14 @@ const cancelButton = document.querySelector('.img-upload__cancel');
 const body = document.querySelector('body');
 const uploadSelectImage = document.getElementById('upload-select-image');
 
-const pristine = new Pristine(uploadSelectImage, {
-  classTo: 'img-upload__field-wrapper',
-  errorClass: 'item--invalid',
-  successClass: 'item--valid',
-  errorTextParent: 'img-upload__field-wrapper',
-}
+const pristine = new Pristine(
+  uploadSelectImage,
+  {
+    classTo: 'img-upload__field-wrapper',
+    errorClass: 'item--invalid',
+    successClass: 'item--valid',
+    errorTextParent: 'img-upload__field-wrapper',
+  }
 );
 
 function showForm () {
@@ -28,7 +32,7 @@ function hideForm() {
 
 function handleKeydownEvent(event) {
   if (event.key === 'Escape') {
-    cancelUpload();
+    closeUpload();
   }
 }
 
@@ -41,19 +45,31 @@ function startUpload() {
 }
 
 function validateListener(event) {
-  if (!pristine.validate()) {
-    event.preventDefault();
+  event.preventDefault();
+
+  if (pristine.validate()) {
+    const onSuccess = () => {
+      closeUpload();
+      showSuccessMessage();
+    };
+    const onFailure = () => {
+      hideForm();
+      showErrorMessage();
+    };
+
+    isEnableUploadButton(false);
+    postData(new FormData(event.target), onSuccess, onFailure, () => isEnableUploadButton(true));
   }
 }
 
-function cancelUpload() {
+function closeUpload() {
   hideForm();
   document.removeEventListener('keydown', handleKeydownEvent);
   uploadSelectImage.reset();
 
   dismissEffects();
   dismissScale();
-  cancelButton.removeEventListener('click', cancelUpload);
+  cancelButton.removeEventListener('click', closeUpload);
   uploadSelectImage.removeEventListener('submit', validateListener);
 }
 
@@ -64,7 +80,7 @@ function validateDescription(description, minDescriptionLength, maxDescriptionLe
 function setupUploadView(minDescriptionLength, maxDescriptionLength) {
 
   uploadInput.addEventListener('change', startUpload);
-  cancelButton.addEventListener('click', cancelUpload);
+  cancelButton.addEventListener('click', closeUpload);
 
   const descriptionTitle = `От ${minDescriptionLength} до ${maxDescriptionLength} символов`;
 
@@ -77,6 +93,10 @@ function setupUploadView(minDescriptionLength, maxDescriptionLength) {
   );
 
   uploadSelectImage.addEventListener('submit', validateListener);
+}
+
+function isEnableUploadButton(isEnable) {
+  uploadSelectImage.disabled = isEnable;
 }
 
 export {

@@ -12,12 +12,16 @@ let currentEffect = clearEffect.value;
 
 const eventListeners = new Array(6);
 
-function generateEventListener(effect) {
+function createEffectEventListener(effect) {
   const newEffect = `effects__preview--${effect.value}`;
 
   const eventListener = function() {
     preview.classList.remove(currentEffect);
-    preview.classList.add(newEffect);
+
+    if(effect !== clearEffect.value) {
+      preview.classList.add(newEffect);
+    }
+
     currentEffect = newEffect;
   };
 
@@ -34,7 +38,7 @@ function dismissEffects() {
 
 function setupEffects() {
   for(let i = 0; i < effects.length; i++) {
-    eventListeners[i] = generateEventListener(effects[i]);
+    eventListeners[i] = createEffectEventListener(effects[i]);
     effects[i].addEventListener('click', eventListeners[i]);
   }
 }
