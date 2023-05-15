@@ -1,4 +1,4 @@
-import 'pristine/pristine.min.js';
+import '/pristine/pristine.min.js';
 
 const uploadInput = document.getElementById('upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -14,21 +14,29 @@ const pristine = new Pristine(uploadSelectImage, {
 }
 );
 
+function showForm () {
+  uploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+}
+
+function hideForm() {
+  uploadOverlay.classList.add('hidden');
+  body.classList.remove('modal-open');
+}
+
 function handleKeydownEvent(event) {
   if (event.key === 'Escape') {
-  //  cancelUpload();
+    cancelUpload();
   }
 }
 
 function startUpload() {
-  uploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
+  showForm();
   document.addEventListener('keydown', handleKeydownEvent);
 }
 
 function cancelUpload() {
-  uploadOverlay.classList.add('hidden');
-  body.classList.remove('modal-open');
+  hideForm();
   document.removeEventListener('keydown', handleKeydownEvent);
   uploadSelectImage.reset();
 }
