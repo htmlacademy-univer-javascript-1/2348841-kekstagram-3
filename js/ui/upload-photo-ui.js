@@ -46,9 +46,7 @@ function startUpload() {
 
 function validateListener(event) {
   event.preventDefault();
-  console.log('validate start');
   if (pristine.validate()) {
-    console.log('validate success');
     const onSuccess = () => {
       closeUpload();
       showSuccessMessage();
@@ -61,7 +59,6 @@ function validateListener(event) {
     isEnableUploadButton(false);
     postData(new FormData(event.target), onSuccess, onFailure, () => isEnableUploadButton(true));
   }
-  console.log('validate end');
 }
 
 function closeUpload() {
