@@ -39,6 +39,7 @@ function handleKeydownEvent(event) {
 function startUpload() {
   showForm();
   document.addEventListener('keydown', handleKeydownEvent);
+  uploadSelectImage.addEventListener('submit', validateListener);
 
   setupEffects();
   setupScale();
@@ -92,8 +93,6 @@ function setupUploadView(minDescriptionLength, maxDescriptionLength) {
     },
     descriptionTitle
   );
-
-  uploadSelectImage.addEventListener('submit', validateListener);
 }
 
 function isEnableUploadButton(isEnable) {
