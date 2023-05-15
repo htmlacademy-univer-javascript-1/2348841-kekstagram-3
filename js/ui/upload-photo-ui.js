@@ -86,7 +86,9 @@ function setupUploadView(minDescriptionLength, maxDescriptionLength) {
   pristine.addValidator(
     uploadSelectImage.querySelector('.text__description'),
     (text) => {
-      validateDescription(text, minDescriptionLength, maxDescriptionLength);
+      const isValid = validateDescription(text, minDescriptionLength, maxDescriptionLength);
+
+      return isValid;
     },
     descriptionTitle
   );
