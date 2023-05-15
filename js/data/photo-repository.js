@@ -1,4 +1,4 @@
-import { getRangomInt } from './utils/number-utils.js';
+import { getRangomInt } from '../utils/number-utils.js';
 
 const MAX_PHOTO_COUNT = 25;
 const MAX_LIKES_COUNT = 200;
@@ -24,7 +24,7 @@ const getPhotos = function (count) {
     photos[i] = (
       {
         id: photoId,
-        url: `photos/${photoId}.png`,
+        url: `photos/${photoId}.jpg`,
         description: `Фотография №/${photoId}`,
         likes: getRangomInt(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
         comments: getRangomInt(MIN_COMMENTS_COUNT, MAX_COMMENTS_COUNT)
