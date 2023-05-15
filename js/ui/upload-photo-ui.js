@@ -1,4 +1,4 @@
-import '/pristine/pristine.min.js';
+import '../../pristine/pristine.min.js';
 
 const uploadInput = document.getElementById('upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
