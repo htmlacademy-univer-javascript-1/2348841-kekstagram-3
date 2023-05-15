@@ -1,4 +1,6 @@
-import '/pristine/pristine.min.js';
+import '../../pristine/pristine.min.js';
+import { setupScale, dismissScale } from '../domain/render-scale-ui.js';
+import { setupEffects, dismissEffects } from '../domain/render-effects-ui.js';
 
 const uploadInput = document.getElementById('upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -33,12 +35,26 @@ function handleKeydownEvent(event) {
 function startUpload() {
   showForm();
   document.addEventListener('keydown', handleKeydownEvent);
+
+  setupEffects();
+  setupScale();
+}
+
+function validateListener(event) {
+  if (!pristine.validate()) {
+    event.preventDefault();
+  }
 }
 
 function cancelUpload() {
   hideForm();
   document.removeEventListener('keydown', handleKeydownEvent);
   uploadSelectImage.reset();
+
+  dismissEffects();
+  dismissScale();
+  cancelButton.removeEventListener('click', cancelUpload);
+  uploadSelectImage.removeEventListener('submit', validateListener);
 }
 
 function validateDescription(description, minDescriptionLength, maxDescriptionLength) {
@@ -60,11 +76,7 @@ function setupUploadView(minDescriptionLength, maxDescriptionLength) {
     descriptionTitle
   );
 
-  uploadSelectImage.addEventListener('submit', (event) => {
-    if (!pristine.validate()) {
-      event.preventDefault();
-    }
-  });
+  uploadSelectImage.addEventListener('submit', validateListener);
 }
 
 export {
